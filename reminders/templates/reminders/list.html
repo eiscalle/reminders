@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+        <div class="row">
+            <div class="col-3">Заголовок</div>
+            <div class="col-3">Автор</div>
+            <div class="col-3">Дата напоминания</div>
+            <div class="col-3">Статус</div>
+        </div>
+    <hr>
+    {% for obj in object_list %}
+        <div class="row">
+            <div class="col-3"><a href="{% url 'reminder_detail' obj.pk %}">{{ obj.title }}</a></div>
+            <div class="col-3">{{ obj.author }}</div>
+            <div class="col-3">{{ obj.publish_at|date:'d.m.Y H:i:s' }}</div>
+            <div class="col-3">{{ obj.get_status_display }}</div>
+        </div>
+    {% endfor %}
+<br>
+    <div class="row"><a href="{% url 'reminder_create' %}">Создать</a></div>
+{% endblock %}

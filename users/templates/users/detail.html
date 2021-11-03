@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-4">
+            Имя пользователя
+        </div>
+        <div class="col-8">
+            {{ object.username }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            Email
+        </div>
+        <div class="col-8">
+            {{ object.email }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            Имя
+        </div>
+        <div class="col-8">
+            {{ object.first_name }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            Фамилия
+        </div>
+        <div class="col-8">
+            {{ object.last_name }}
+        </div>
+    </div>
+    {% if object.pk == user.pk %}
+        <div class="row">
+            <div class="col-4">
+                <a href="{% url 'user_update' object.pk %}">Обновить</a>
+            </div>
+            <div class="col-4">
+                <a href="{% url 'change_password' %}">Сменить пароль</a>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

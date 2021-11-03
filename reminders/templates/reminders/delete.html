@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            Вы уверены, что хотите удалить выбранное напоминание?<br> <br>
+            {{ object.title }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <form action="" method="post">
+                {% csrf_token %}
+                <input type="submit" value="Удалить" class="btn">
+            </form>
+        </div>
+    </div>
+{% endblock %}

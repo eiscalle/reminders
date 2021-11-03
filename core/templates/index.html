@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <a href="{% url 'reminder_list' %}">Напоминания</a>
+    {% endif %}
+{% endblock %}

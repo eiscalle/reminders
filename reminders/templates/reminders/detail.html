@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-4">
+            Заголовок
+        </div>
+        <div class="col-8">
+            {{ object.title }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            Описание
+        </div>
+        <div class="col-8">
+            {{ object.description }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            Место
+        </div>
+        <div class="col-8">
+            {{ object.place }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            Участники
+        </div>
+        <div class="col-8">
+            {% for user in object.users.all %}
+                <a href="{% url 'user_detail' user.pk %}">{{ user.username }}</a> - {{ user.email }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            Дата напоминания
+        </div>
+        <div class="col-8">
+            {{ object.publish_at|date:'d.m.Y H:i:s' }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            Автор
+        </div>
+        <div class="col-8">
+            {{ object.author }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            Статус
+        </div>
+        <div class="col-8">
+            {{ object.get_status_display }}
+        </div>
+    </div>
+    {% if object.author == user %}
+        <hr>
+        <div class="row">
+            <div class="col-4">
+
+                <form action="{% url 'reminder_mark_complete' object.pk %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success">Пометить завершенным</button>
+                </form>
+            </div>
+                <div class="col-3"><a class="btn btn-warning" href="{% url 'reminder_update' object.pk %}">Редактировать</a></div>
+                <div class="col-4"><a class="btn btn-danger" href="{% url 'reminder_delete' object.pk %}">Удалить</a></div>
+
+        </div>
+    {% endif %}
+{% endblock %}

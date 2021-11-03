@@ -1,0 +1,44 @@
+version: '3.4'
+
+x-deff: &app_build_template
+  build:
+    context: .
+    dockerfile: docker/Dockerfile.prod
+  volumes:
+    - ./:/var/www/reminder/
+  expose:
+    - 8000
+  env_file:
+    - ./.env.prod
+  depends_on:
+    - db
+    - redis
+
+services:
+  web:
+    <<: *app_build_template
+    command: gunicorn core.wsgi:application --bind 0.0.0.0:8000
+  db:
+    image: postgres:13.0-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=reminder
+      - POSTGRES_PASSWORD=1
+      - POSTGRES_DB=reminder
+  nginx:
+    build: ./docker/nginx
+    ports:
+      - 1337:80
+    depends_on:
+      - web
+  redis:
+    image: "redis:alpine"
+  celery:
+    <<: *app_build_template
+    command: celery -A core worker -l info
+  celery_beat:
+    <<: *app_build_template
+    command: celery -A core beat -l info
+volumes:
+  postgres_data:

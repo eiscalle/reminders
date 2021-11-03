@@ -1,0 +1,63 @@
+
+
+# use glob syntax.
+syntax: glob
+
+.idea
+.DS_Store
+.project
+.pydevproject
+*.pyc
+.settings
+*.un~
+*~ django
+build
+*.swp
+*.mo
+.\#*
+\#*
+__pycache__
+.mypy_cache/
+
+# Unit test / coverage reports
+.pytest_cache/
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*,cover
+.hypothesis/
+
+# Celery
+celerybeat-schedule
+
+# virtual environment
+.venv
+
+# Vim Ag and Fzf ignore file
+.ignore
+/venvx/
+
+# Ignore tags created by etags, ctags, gtags (GNU global) and cscope
+TAGS
+.TAGS
+!TAGS/
+tags*
+.tags
+!tags/
+gtags.files
+GTAGS
+GRTAGS
+GPATH
+GSYMS
+cscope.files
+cscope.out
+cscope.in.out
+cscope.po.out
+/venv/
+
+# static files
+static/
